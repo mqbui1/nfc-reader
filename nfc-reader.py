@@ -113,7 +113,7 @@ while True:
         # Intro complete, play main song
         elif isplaying() != True:
             # Randomize character song
-            directory = glob.glob('/home/pi/'+cardidentifier+'*')
+            directory = glob.glob('/home/pi/'+cardidentifier+'-*')
             songlist = os.listdir(directory[0])
             selected_song=random.choice(songlist)
             # Play randomized song
