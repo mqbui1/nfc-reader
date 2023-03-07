@@ -77,7 +77,7 @@ mixer.init()
 while True:
     # Check if a card is available to read
     uid = pn532.read_passive_target(timeout=0.5) 
-    print(".", end="")
+    #print(".", end="")
     # Try again if no card is available.
     if uid is None:
         print('Waiting for RFID/NFC card...')
@@ -93,10 +93,11 @@ while True:
     try:
         uid_str = binascii.hexlify(bytearray(pn532.read_passive_target(timeout=0.5)))
         cardidentifier= uid_str.decode()
+
         #charid_str = binascii.hexlify(bytearray(pn532.mifare_classic_read_block(21)))
         #cardidentifier= charid_str.decode()
         
-        # Sleep to get decoded UID
+        # Sleep to get character ID
         #print('cardidentifier: ' + cardidentifier)
         #time.sleep(999999)
         
@@ -112,12 +113,10 @@ while True:
         # Intro complete, play main song
         elif isplaying() != True:
             # Randomize character song
-            songlist = os.listdir('/home/pi/'+cardidentifier)
+            directory = glob.glob('/home/pi/'+cardidentifier+'*')
+            songlist = os.listdir(directory[0])
             selected_song=random.choice(songlist)
-            print(selected_song)
             # Play randomized song
-            playfile(mixer, '/home/pi/'+cardidentifier+'/'+selected_song, 0.5)
+            playfile(mixer, directory[0]+'/'+selected_song, 0.5)
     except:
         pass
-    
-
