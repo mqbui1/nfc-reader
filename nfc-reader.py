@@ -133,6 +133,8 @@ while True:
         # Else if NFC read is a book and reading is not in progress, start audio
         elif isBook == True and isplaying() != True:
             print('start reading')
+            playintrofile(mixer, 'intro_sound.mp3', 0.5)
+            time.sleep(1)
             playmainfile(mixer, cardidentifier, 0.5)
             time.sleep(2)
         # Else if NFC read is not a book
